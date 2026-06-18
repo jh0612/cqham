@@ -182,8 +182,8 @@ public class LogViewController {
     public ToggleGroup frequencyMode;
 
     // ===================== 常数定义等 =====================
-    // 时分格式化器
-    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+    // 时分秒格式化器
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
 
 
 
