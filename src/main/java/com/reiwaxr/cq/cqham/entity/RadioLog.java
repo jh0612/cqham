@@ -54,13 +54,14 @@ public class RadioLog {
     // 无参、有参构造
     public RadioLog() {}
 
-    public RadioLog(Long id, String callSign, String qth, String frequency, String mode, LocalDate connectDate, String device, String weather, String signalReport, String name, String power, String qslStatus, String address, String remark) {
+    public RadioLog(Long id, String callSign, String qth, String frequency, String mode, LocalDate connectDate, String connectTime, String device, String weather, String signalReport, String name, String power, String qslStatus, String address, String remark) {
         this.id = id;
         this.callSign = callSign;
         this.qth = qth;
         this.frequency = frequency;
         this.mode = mode;
         this.connectDate = connectDate;
+        this.connectTime = connectTime;
         this.device = device;
         this.weather = weather;
         this.signalReport = signalReport;
@@ -71,6 +72,13 @@ public class RadioLog {
         this.remark = remark;
     }
 
+    public String getConnectTime() {
+        return connectTime;
+    }
+
+    public void setConnectTime(String connectTime) {
+        this.connectTime = connectTime;
+    }
     public String getAddress() {
         return address;
     }
