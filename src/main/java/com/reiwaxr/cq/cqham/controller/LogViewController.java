@@ -1,8 +1,10 @@
 package com.reiwaxr.cq.cqham.controller;
 
 import com.reiwaxr.cq.cqham.entity.RadioLog;
+import com.reiwaxr.cq.cqham.utils.TimeSpinnerValueFactory;
 import com.reiwaxr.cq.cqham.view.ViewUtil;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,18 +13,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
+import javafx.util.Duration;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 import static com.reiwaxr.cq.cqham.common.PagePath.MAIN_PAGE;
+import static com.reiwaxr.cq.cqham.utils.AllSpinnerValueFactory.getDoubleSpinnerValueFactory;
 
 /**
  * @Description 通联日志页面控制器
@@ -32,7 +33,7 @@ import static com.reiwaxr.cq.cqham.common.PagePath.MAIN_PAGE;
  */
 public class LogViewController {
 
-    /**************************** 按钮 *****************************************/
+    // =====================  按钮 =====================
     /* 单选按钮-模拟模式 */
     @FXML
     public RadioButton radiobuttonFx;
@@ -58,7 +59,7 @@ public class LogViewController {
     @FXML
     private Button btnSave;
 
-    /**************************** 表格 *****************************************/
+    // =====================  表格 =====================
     /* 表格主键ID列 */
     @FXML
     private TableColumn<RadioLog, String> idCol;
@@ -67,9 +68,13 @@ public class LogViewController {
     @FXML
     private TableColumn<RadioLog, String> callSignCol;
 
+    /* 表格通联日期 */
+    @FXML
+    private TableColumn<RadioLog, LocalDate> dateCol;
+
     /* 表格通联时间 */
     @FXML
-    private TableColumn<RadioLog, LocalDate> timeCol;
+    private TableColumn<RadioLog, String> timeCol;
 
     /* 表格通联模式 */
     @FXML
@@ -119,7 +124,7 @@ public class LogViewController {
     @FXML
     private TableView<RadioLog> tbLogList;
 
-    /**************************** Input *****************************************/
+    // ===================== Input =====================
     /* 呼号输入框 */
     @FXML
     private TextField tfCallSign;
@@ -164,13 +169,23 @@ public class LogViewController {
     @FXML
     private TextArea taRemark;
 
-    /* 通联时间选择框 */
+    /* 通联日期选择框 */
     @FXML
     private DatePicker dpConnectDate;
+
+    /* 通联时间选择框 */
+    @FXML
+    private Spinner<String> spConnectTime;
+
     /* 频率模式单选框群组 */
     @FXML
     public ToggleGroup frequencyMode;
-    /**************************** Input *****************************************/
+
+    // ===================== 常数定义等 =====================
+    // 时分格式化器
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+
+
 
     //TODO: 初期化List，以后将数据源加入到List中即可显示数据
     LinkedList<RadioLog> tableList = new LinkedList<>();
@@ -204,12 +219,42 @@ public class LogViewController {
         DoubleSpinnerValueFactory factory = getDoubleSpinnerValueFactory();
         spfrequency.setValueFactory(factory);
 
+
+        // 1. 构建自定义时间Spinner工厂
+        SpinnerValueFactory<String> timeFactory = new TimeSpinnerValueFactory();
+        spConnectTime.setValueFactory(timeFactory);
+
+        // 开启编辑提交（输入完回车生效）
+        spConnectTime.getEditor().setOnAction(event -> {
+            String input = spConnectTime.getEditor().getText();
+            if (checkTimeFormat(input)) {
+                spConnectTime.getValueFactory().setValue(input);
+            } else {
+                // 格式错误恢复当前有效值
+                spConnectTime.getEditor().setText(spConnectTime.getValue());
+            }
+        });
+
+        // 2. 初始化填充当前系统时间
+        String nowTime = TIME_FORMAT.format(new Date());
+        spConnectTime.getValueFactory().setValue(nowTime);
+
+        // 【可选】定时器每秒刷新显示当前时间，不需要则注释掉这段
+        Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            String current = TIME_FORMAT.format(new Date());
+            spConnectTime.getValueFactory().setValue(current);
+        }));
+        timeLine.setCycleCount(Timeline.INDEFINITE);
+        timeLine.play();
+
+
         // 绑定表格列与实体字段
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         callSignCol.setCellValueFactory(new PropertyValueFactory<>("callSign"));
         qthCol.setCellValueFactory(new PropertyValueFactory<>("qth"));
         frequencyCol.setCellValueFactory(new PropertyValueFactory<>("frequency"));
         modeCol.setCellValueFactory(new PropertyValueFactory<>("mode"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("connectDate"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("connectTime"));
         deviceCol.setCellValueFactory(new PropertyValueFactory<>("device"));
         weatherCol.setCellValueFactory(new PropertyValueFactory<>("weather"));
@@ -265,7 +310,8 @@ public class LogViewController {
         log.setMode(selectedRadioButtonText.trim());
         log.setDevice(tfDevice.getText().trim());
         log.setWeather(cbWeather.getValue());
-        log.setConnectTime(LocalDate.from(date.atStartOfDay()));
+        log.setConnectDate(LocalDate.from(date.atStartOfDay()));
+        log.setConnectTime(spConnectTime.getValue());
         log.setRemark(taRemark.getText().trim());
         log.setSignalReport(cbsignalReport.getValue());
         log.setName(tfname.getText().trim());
@@ -331,54 +377,23 @@ public class LogViewController {
         }
     }
 
-    /**
-     * 模拟FM单选框
-     * @param actionEvent ActionEvent
-     */
-    public void radiobuttonFx(ActionEvent actionEvent) {
-    }
 
     /**
-     * 数字(YSF)单选框
-     * @param actionEvent ActionEvent
+     * 校验格式 HH:mm
      */
-    public void radiobuttonysf(ActionEvent actionEvent) {
+    private boolean checkTimeFormat(String timeStr) {
+        if (timeStr == null || !timeStr.matches("\\d{2}:\\d{2}")) {
+            return false;
+        }
+        String[] split = timeStr.split(":");
+        try {
+            int hour = Integer.parseInt(split[0]);
+            int minute = Integer.parseInt(split[1]);
+            return hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
-    /**
-     * 数字(DMR)单选框
-     * @param actionEvent ActionEvent
-     */
-    public void radiobuttondmr(ActionEvent actionEvent) {
-    }
-
-    /**
-     * 微调器固定显示格式私有方法
-     */
-    private static DoubleSpinnerValueFactory getDoubleSpinnerValueFactory() {
-        DoubleSpinnerValueFactory factory =
-                new DoubleSpinnerValueFactory(0.0000, 999.9999, 438.500, 0.125);
-        DecimalFormat df = new DecimalFormat("000.0000");
-        factory.setConverter(new StringConverter<>() {
-            // 数值转界面文本：强制4位小数
-            @Override
-            public String toString(Double value) {
-                if (value == null) return "0.0000";
-                return df.format(value);
-            }
-
-            // 输入文本转回数值
-            @Override
-            public Double fromString(String s) {
-                try {
-                    return df.parse(s).doubleValue();
-                } catch (Exception e) {
-                    // 输入非法时恢复当前值
-                    return factory.getValue();
-                }
-            }
-        });
-        return factory;
-    }
 }
 

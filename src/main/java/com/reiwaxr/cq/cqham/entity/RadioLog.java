@@ -30,8 +30,10 @@ public class RadioLog {
     private String frequency;
     /* 通联模式 */
     private String mode;
+    /* 通联日期 */
+    private LocalDate connectDate;
     /* 通联时间 */
-    private LocalDate connectTime;
+    private String connectTime;
     /* 对方设备 */
     private String device;
     /* 天气 */
@@ -52,13 +54,13 @@ public class RadioLog {
     // 无参、有参构造
     public RadioLog() {}
 
-    public RadioLog(Long id, String callSign, String qth, String frequency, String mode, LocalDate connectTime, String device, String weather, String signalReport, String name, String power, String qslStatus, String address, String remark) {
+    public RadioLog(Long id, String callSign, String qth, String frequency, String mode, LocalDate connectDate, String device, String weather, String signalReport, String name, String power, String qslStatus, String address, String remark) {
         this.id = id;
         this.callSign = callSign;
         this.qth = qth;
         this.frequency = frequency;
         this.mode = mode;
-        this.connectTime = connectTime;
+        this.connectDate = connectDate;
         this.device = device;
         this.weather = weather;
         this.signalReport = signalReport;
@@ -105,6 +107,14 @@ public class RadioLog {
         return frequency;
     }
 
+    public LocalDate getConnectDate() {
+        return connectDate;
+    }
+
+    public void setConnectDate(LocalDate connectDate) {
+        this.connectDate = connectDate;
+    }
+
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
@@ -115,14 +125,6 @@ public class RadioLog {
 
     public void setMode(String mode) {
         this.mode = mode;
-    }
-
-    public LocalDate getConnectTime() {
-        return connectTime;
-    }
-
-    public void setConnectTime(LocalDate connectTime) {
-        this.connectTime = connectTime;
     }
 
     public String getDevice() {
