@@ -6,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+import static com.reiwaxr.cq.cqham.common.PagePath.LOG_VIEW_PAGE;
+
 /**
  * @Description 主界面控制器
  * @Version v1.0
@@ -30,11 +34,15 @@ public class HomeViewController {
      跳转到通联日志页面
      */
     @FXML
-    public void btnGoLogClick(ActionEvent event) {
-        // 获取当前窗口
-        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        // 跳转日志页面 fxml 路径
-        ViewUtil.switchView("src/main/resources/com/reiwaxr/cq/cqham/LogView.fxml", stage);
+    public void btnGoLogClick(ActionEvent event){
+        try {
+            // 获取当前窗口
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            // 跳转日志页面 fxml 路径
+            ViewUtil.switchView(LOG_VIEW_PAGE, stage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // 预留：其他工具按钮（示例）
