@@ -145,8 +145,8 @@
                 <TableColumn fx:id="weatherCol" minWidth="75.0" text="天气" />
                 <TableColumn fx:id="signalReportCol" minWidth="75.0" text="信号报告" />
                 <TableColumn fx:id="qslStatusCol" minWidth="75.0" text="QSL状态" />
-                <TableColumn fx:id="nameCol" minWidth="75.0" text="姓名"  visible="false"/><!-- 住址和姓名列默认隐藏，避免泄露个人隐私 -->
-                <TableColumn fx:id="addressCol" minWidth="75.0" text="住址"  visible="false"/>
+                <TableColumn fx:id="nameCol" minWidth="75.0" text="姓名" visible="false" /><!-- 住址和姓名列默认隐藏，避免泄露个人隐私 -->
+                <TableColumn fx:id="addressCol" minWidth="75.0" text="住址" visible="false" />
                 <TableColumn fx:id="remarkCol" minWidth="174.0" text="备注" />
             </columns>
             <!-- 表格列自动均分剩余宽度 CONSTRAINED_RESIZE_POLICY-->
@@ -170,9 +170,9 @@
       <AnchorPane nodeOrientation="LEFT_TO_RIGHT" BorderPane.alignment="CENTER">
          <children>
              <!-- 第0行 -->
-               <Label disable="true" layoutX="13.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="BI1WCB@Copyright2026" textFill="#bca9a9">
+               <Label disable="true" layoutX="13.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="BI1WCB@Copyright2026                  Bravo India One Whisky Charlie Bravo" textFill="#8b2828">
                <font>
-                  <Font name="Bell MT Italic" size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
          </children>
