@@ -1,69 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import java.lang.String?>
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.SelectEditLogViewController">
+
+<BorderPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.SelectEditLogViewController">
     <!-- 顶部：检索条件区域 -->
     <top>
         <VBox spacing="10">
-            <Text text="多条件复合检索" />
+            <Text text="多条件复合检索">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </VBox.margin></Text>
             <!-- 第一行检索项 -->
-            <HBox spacing="15" alignment="CENTER_LEFT">
-                <Label text="呼号(精确)："/>
-                <TextField fx:id="tfSearchCall" promptText="输入完整呼号，多个用英文逗号分隔"/>
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="呼号(精确)：" />
+                <TextField fx:id="tfSearchCall" promptText="输入完整呼号，多个用英文逗号分隔" />
 
-                <Label text="通联日期范围："/>
-                <DatePicker fx:id="dpStartDate"/>
-                <Label text="~"/>
-                <DatePicker fx:id="dpEndDate"/>
+                <Label text="通联日期范围：" />
+                <DatePicker fx:id="dpStartDate" />
+                <Label text="~" />
+                <DatePicker fx:id="dpEndDate" />
+            <VBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </VBox.margin>
             </HBox>
             <!-- 第二行检索项 -->
-            <HBox spacing="15" alignment="CENTER_LEFT">
-                <Label text="天气："/>
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="天气：" />
                 <ComboBox fx:id="cbSearchWeather" promptText="全部">
-<!--                    <items>-->
-<!--                        <String>晴</String>-->
-<!--                        <String>多云</String>-->
-<!--                        <String>阴</String>-->
-<!--                        <String>雨</String>-->
-<!--                        <String>雾</String>-->
-<!--                        <String>大风</String>-->
-<!--                    </items>-->
                 </ComboBox>
 
-                <Label text="频率："/>
-                <TextField fx:id="tfSearchFreq" promptText="多个频率英文逗号分隔，最多200条"/>
+                <Label text="频率：" />
+                <TextField fx:id="tfSearchFreq" promptText="多个频率英文逗号分隔，最多200条" />
 
-                <Label text="通联模式："/>
+                <Label text="通联模式：" />
                 <ComboBox fx:id="cbSearchMode" promptText="全部">
                     <items>
-<!--                        <String>FM</String>-->
-<!--                        <String>YSF</String>-->
-<!--                        <String>DMR</String>-->
                     </items>
                 </ComboBox>
 
-                <Label text="QSL状态："/>
+                <Label text="QSL状态：" />
                 <ComboBox fx:id="cbSearchQsl" promptText="全部">
-<!--                    <items>-->
-<!--                        <String>已发送</String>-->
-<!--                        <String>已接收</String>-->
-<!--                        <String>未收发</String>-->
-<!--                    </items>-->
                 </ComboBox>
+            <VBox.margin>
+               <Insets bottom="2.0" left="5.0" right="2.0" top="2.0" />
+            </VBox.margin>
             </HBox>
             <!-- 按钮行 -->
             <HBox spacing="20">
-                <Button fx:id="btnSearch" onAction="#btnSearchClick" text="执行检索"/>
-                <Button fx:id="btnReset" onAction="#btnResetClick" text="重置条件"/>
-                <Separator orientation="VERTICAL"/>
-                <Button fx:id="btnEditDb" onAction="#btnEditDbClick" text="编辑选中数据(更新数据库)"/>
-                <Button fx:id="btnDeleteDb" onAction="#btnDeleteDbClick" text="删除选中数据库记录"/>
-                <Separator orientation="VERTICAL"/>
+                <Button fx:id="btnSearch" onAction="#btnSearchClick" text="执行检索" />
+                <Button fx:id="btnReset" onAction="#btnResetClick" text="重置条件" />
+                <Separator orientation="VERTICAL" />
+                <Button fx:id="btnEditDb" onAction="#btnEditDbClick" text="编辑选中数据(更新数据库)" />
+                <Button fx:id="btnDeleteDb" onAction="#btnDeleteDbClick" text="删除选中数据库记录" />
+                <Separator orientation="VERTICAL" />
                 <Button fx:id="btnBackMain" onAction="#backMain" text="返回主菜单" />
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <VBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </VBox.margin>
             </HBox>
         </VBox>
     </top>
@@ -73,30 +85,30 @@
         <VBox spacing="8">
             <TableView fx:id="tbSearchResult" prefHeight="380">
                 <columns>
-                    <TableColumn text="ID" fx:id="idCol" prefWidth="60"/>
-                    <TableColumn text="呼号" fx:id="callSignCol" prefWidth="90"/>
-                    <TableColumn text="QTH" fx:id="qthCol" prefWidth="120"/>
-                    <TableColumn text="频率" fx:id="frequencyCol" prefWidth="90"/>
-                    <TableColumn text="模式" fx:id="modeCol" prefWidth="70"/>
-                    <TableColumn text="通联日期" fx:id="dateCol" prefWidth="100"/>
-                    <TableColumn text="时间" fx:id="timeCol" prefWidth="80"/>
-                    <TableColumn text="设备" fx:id="deviceCol" minWidth="75.0" />
-                    <TableColumn text="天气" fx:id="weatherCol" prefWidth="70"/>
-                    <TableColumn text="信号报告" fx:id="signalReportCol" prefWidth="100"/>
-                    <TableColumn text="功率" fx:id="powerCol" prefWidth="70"/>
-                    <TableColumn text="QSL状态" fx:id="qslStatusCol" prefWidth="90"/>
-                    <TableColumn text="姓名" fx:id="nameCol" minWidth="75.0" />
-                    <TableColumn text="住址" fx:id="addressCol" minWidth="75.0" />
-                    <TableColumn text="备注" fx:id="remarkCol" prefWidth="150"/>
+                    <TableColumn fx:id="idCol" prefWidth="60" text="ID" />
+                    <TableColumn fx:id="callSignCol" prefWidth="90" text="呼号" />
+                    <TableColumn fx:id="qthCol" prefWidth="120" text="QTH" />
+                    <TableColumn fx:id="frequencyCol" prefWidth="90" text="频率" />
+                    <TableColumn fx:id="modeCol" prefWidth="70" text="模式" />
+                    <TableColumn fx:id="dateCol" prefWidth="100" text="通联日期" />
+                    <TableColumn fx:id="timeCol" prefWidth="80" text="时间" />
+                    <TableColumn fx:id="deviceCol" minWidth="75.0" text="设备" />
+                    <TableColumn fx:id="weatherCol" prefWidth="70" text="天气" />
+                    <TableColumn fx:id="signalReportCol" prefWidth="100" text="信号报告" />
+                    <TableColumn fx:id="powerCol" prefWidth="70" text="功率" />
+                    <TableColumn fx:id="qslStatusCol" prefWidth="90" text="QSL状态" />
+                    <TableColumn fx:id="nameCol" minWidth="75.0" text="姓名" />
+                    <TableColumn fx:id="addressCol" minWidth="75.0" text="住址" />
+                    <TableColumn fx:id="remarkCol" prefWidth="150" text="备注" />
                 </columns>
             </TableView>
             <!-- 分页控件 -->
-            <HBox spacing="15" alignment="CENTER">
-                <Button fx:id="btnPrevPage" text="上一页"/>
-                <Label fx:id="lbPageInfo" text="第1页 / 共0页"/>
-                <Button fx:id="btnNextPage" text="下一页"/>
-                <Label text="单页条数：20"/>
-                <Label fx:id="lbTotalCount" text="总数据：0"/>
+            <HBox alignment="CENTER" spacing="15">
+                <Button fx:id="btnPrevPage" text="上一页" />
+                <Label fx:id="lbPageInfo" text="第1页 / 共0页" />
+                <Button fx:id="btnNextPage" text="下一页" />
+                <Label text="单页条数：20" />
+                <Label fx:id="lbTotalCount" text="总数据：0" />
             </HBox>
         </VBox>
     </center>
@@ -104,8 +116,8 @@
     <!-- 底部：可视化预留区域 -->
     <bottom>
         <VBox spacing="5">
-            <Text text="数据可视化区域(预留)"/>
-            <BorderPane fx:id="visualPanel" prefHeight="220" style="-fx-border-color:#cccccc;-fx-border-width:1"/>
+            <Text text="数据可视化区域(预留)" />
+            <BorderPane fx:id="visualPanel" prefHeight="220" style="-fx-border-color:#cccccc;-fx-border-width:1" />
         </VBox>
     </bottom>
 </BorderPane>
