@@ -1,5 +1,6 @@
 package com.reiwaxr.cq.cqham;
 
+import com.reiwaxr.cq.cqham.utils.DBUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +11,9 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        // 程序打开自动初始化数据表
+        DBUtil.initTable();
+
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("HomeView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1100, 750);
         // 设置窗口最小尺寸（防止缩得太小导致界面错乱）

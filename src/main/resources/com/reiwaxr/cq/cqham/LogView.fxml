@@ -158,11 +158,13 @@
    <right>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-               <Button fx:id="btnAdd" layoutX="37.0" layoutY="51.0" mnemonicParsing="false" onAction="#btnAddClick" text="新增日志" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
-               <Button fx:id="btnClear" layoutX="36.0" layoutY="169.0" mnemonicParsing="false" onAction="#btnClearFormClick" text="清空表单" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
-               <Button fx:id="btnDelete" layoutX="36.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnDeleteClick" text="删除选中" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
-               <Button fx:id="btnSave" layoutX="49.0" layoutY="227.0" mnemonicParsing="false" text="保存" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
-               <Button fx:id="btnBackMain" layoutX="31.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnBackMainClick" text="返回主菜单" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
+            <Button fx:id="btnAdd" layoutX="37.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnAddClick" text="新增日志" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
+            <Button fx:id="btnClear" layoutX="36.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnClearFormClick" text="清空表单" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
+            <Button fx:id="btnDelete" layoutX="36.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnDeleteClick" text="删除选中" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
+            <Button fx:id="btnSave" layoutX="49.0" layoutY="180.0" mnemonicParsing="false" text="保存" onAction="#btnSaveClick" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
+            <Button fx:id="btnQuery" layoutX="36.0" layoutY="220.0" mnemonicParsing="false" onAction="#btnQueryClick" text="检索画面" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
+            <Button fx:id="btnEdit" layoutX="49.0" layoutY="260.0" mnemonicParsing="false" text="编辑" onAction="#btnEditClick" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
+            <Button fx:id="btnBackMain" layoutX="31.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnBackMainClick" text="返回主菜单" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" />
          </children>
       </AnchorPane>
    </right>

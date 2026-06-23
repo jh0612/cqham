@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -16,9 +15,6 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Setter
 public class RadioLog {
-
-    // 统一格式化器，静态常量只创建一次
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /* 主键ID */
     private Long id;

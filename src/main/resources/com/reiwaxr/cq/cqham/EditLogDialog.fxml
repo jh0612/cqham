@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.EditLogDialogController" prefWidth="720" prefHeight="620">
+    <top>
+        <Text text="编辑数据库通联记录" />
+    </top>
+    <center>
+        <VBox spacing="12">
+            <HBox spacing="10">
+                <Label text="呼号："/>
+                <TextField fx:id="tfCallSign" prefWidth="180"/>
+                <Label text="QTH："/>
+                <TextField fx:id="tfQth" prefWidth="240"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="频率："/>
+                <Spinner fx:id="spfrequency" prefWidth="120"/>
+                <Label text="通联模式："/>
+                    <RadioButton fx:id="rbFm" text="模拟FM" >
+                        <toggleGroup>
+                            <ToggleGroup fx:id="modeGroup" />
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="rbYsf" text="数字(YSF)" toggleGroup="$modeGroup" />
+                    <RadioButton fx:id="rbDmr" text="数字(DMR)" toggleGroup="$modeGroup" />
+            </HBox>
+            <HBox spacing="10">
+                <Label text="通联日期："/>
+                <DatePicker fx:id="dpConnectDate"/>
+                <Label text="通联时间："/>
+                <Spinner fx:id="spConnectTime" prefWidth="110"/>
+                <Label text="天气："/>
+                <ComboBox fx:id="cbWeather" prefWidth="100"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="对方设备："/>
+                <TextField fx:id="tfDevice" prefWidth="160"/>
+                <Label text="信号报告："/>
+                <ChoiceBox fx:id="cbSignalReport" prefWidth="140"/>
+                <Label text="姓名："/>
+                <TextField fx:id="tfName" prefWidth="120"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="功率："/>
+                <ChoiceBox fx:id="cbPower" prefWidth="100"/>
+                <Label text="QSL状态："/>
+                <ChoiceBox fx:id="cbQslStatus" prefWidth="110"/>
+                <Label text="住址："/>
+                <TextField fx:id="tfAddress" prefWidth="220"/>
+            </HBox>
+            <VBox spacing="4">
+                <Label text="备注"/>
+                <TextArea fx:id="taRemark" prefHeight="100"/>
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="30" alignment="CENTER" >
+            <Button fx:id="btnSubmit" onAction="#btnSubmitClick" text="提交修改"/>
+            <Button fx:id="btnCancel" onAction="#btnCancelClick" text="取消"/>
+        </HBox>
+    </bottom>
+</BorderPane>

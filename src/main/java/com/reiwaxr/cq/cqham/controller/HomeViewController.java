@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import static com.reiwaxr.cq.cqham.common.PagePath.LOG_VIEW_PAGE;
+import static com.reiwaxr.cq.cqham.common.PagePath.SELECT_EDIT_LOG_VIEW;
 
 /**
  * @Description 主界面控制器
@@ -45,10 +46,20 @@ public class HomeViewController {
         }
     }
 
-    // 预留：其他工具按钮（示例）
+    /**
+     * 跳转到通联日志检索页面
+     * @param event ActionEvent
+     */
     @FXML
     public void btnGoFreqClick(ActionEvent event) {
-        // 后续新增页面在这里补充跳转逻辑
+        try {
+            // 获取当前窗口
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            // 跳转日志页面 fxml 路径
+            ViewUtil.switchView(SELECT_EDIT_LOG_VIEW, stage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
