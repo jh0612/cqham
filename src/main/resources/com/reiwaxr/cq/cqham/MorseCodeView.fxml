@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.MorseCodeController" prefWidth="950" prefHeight="700">
+    <!-- 顶部 转换输入输出区域 -->
+    <top>
+        <VBox spacing="10">
+            <Text text="摩尔斯码互转换工具" />
+            <!-- 分隔符配置 -->
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <Label text="字符间隔符:"/>
+                <TextField fx:id="tfCharSep" text="/" prefWidth="60"/>
+                <Label text="单词间隔符:"/>
+                <TextField fx:id="tfWordSep" text="  " prefWidth="60"/>
+            </HBox>
+            <!-- 正向：文本转摩尔斯 -->
+            <VBox spacing="4">
+                <Label text="输入英文文本(字母/数字/标点)"/>
+                <TextArea fx:id="taInputText" promptText="例如 CQ TEST" prefHeight="80"/>
+                <HBox spacing="10">
+                    <Button fx:id="btnToMorse" text="转为摩尔斯码"/>
+                    <Button fx:id="btnCopyMorse" text="复制摩尔斯结果"/>
+                </HBox>
+                <Label text="转换结果(摩尔斯码)"/>
+                <TextArea fx:id="taMorseResult" editable="false" prefHeight="80"/>
+            </VBox>
+            <Separator/>
+            <!-- 反向：摩尔斯转文本 -->
+            <VBox spacing="4">
+                <Label text="输入摩尔斯码（字符用/分隔，单词用两个空格）"/>
+                <TextArea fx:id="taInputMorse" promptText="-.-/--/  -/./.../..." prefHeight="80"/>
+                <HBox spacing="10">
+                    <Button fx:id="btnToText" text="还原文本"/>
+                    <Button fx:id="btnCopyText" text="复制文字结果"/>
+                </HBox>
+                <Label text="还原文字结果"/>
+                <TextArea fx:id="taTextResult" editable="false" prefHeight="80"/>
+            </VBox>
+            <HBox spacing="15">
+                <Button fx:id="btnClearAll" text="清空全部"/>
+                <Button fx:id="btnCloseWin" text="关闭窗口"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- 底部 速查表 -->
+    <bottom>
+        <VBox spacing="5">
+            <Text text="摩尔斯码速查表" />
+            <TableView fx:id="tbMorseTable" prefHeight="260">
+                <columns>
+                    <TableColumn text="字符" fx:id="charKeyCol" prefWidth="80" />
+                    <TableColumn text="摩尔斯码" fx:id="morseCodeCol" prefWidth="180" />
+                </columns>
+            </TableView>
+        </VBox>
+    </bottom>
+</BorderPane>
