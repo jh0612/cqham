@@ -84,7 +84,7 @@ public class SelectEditLogViewController {
     @FXML
     public void initialize() {
         cbSearchWeather.getItems().addAll("晴", "多云", "阴", "雨", "雾", "大风");
-        cbSearchMode.getItems().addAll("模拟FM","数字(YSF)","数字(DMR)");
+        cbSearchMode.getItems().addAll("FM","YSF","DMR");
         cbSearchQsl.getItems().addAll("已发送","已接收","未收发");
         tbSearchResult.setItems(tableData);
         // 页面初始化：加载最新140条，分页展示

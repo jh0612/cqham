@@ -3,13 +3,17 @@ package com.reiwaxr.cq.cqham.controller;
 import com.reiwaxr.cq.cqham.view.ViewUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.reiwaxr.cq.cqham.common.PagePath.LOG_VIEW_PAGE;
-import static com.reiwaxr.cq.cqham.common.PagePath.SELECT_EDIT_LOG_VIEW;
+import static com.reiwaxr.cq.cqham.common.PagePath.*;
 
 /**
  * @Description 主界面控制器
@@ -42,6 +46,7 @@ public class HomeViewController {
             // 跳转日志页面 fxml 路径
             ViewUtil.switchView(LOG_VIEW_PAGE, stage);
         } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "打开通联日志页面失败："+e.getMessage()).show();
             throw new RuntimeException(e);
         }
     }
@@ -58,13 +63,29 @@ public class HomeViewController {
             // 跳转日志页面 fxml 路径
             ViewUtil.switchView(SELECT_EDIT_LOG_VIEW, stage);
         } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "打开通联日志检索页面失败："+e.getMessage()).show();
             throw new RuntimeException(e);
         }
     }
 
     @FXML
     public void btnGoCallClick(ActionEvent event) {
-        // 后续新增页面在这里补充跳转逻辑
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(MORSE_CODE_VIEW));
+            Parent root = loader.load();
+            Stage dialog = new Stage();
+            dialog.setTitle("摩尔斯码速查互转工具");
+            dialog.setScene(new Scene(root));
+            dialog.setResizable(false);
+            // 模态锁定父窗口
+            Stage owner = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            dialog.initOwner(owner);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.showAndWait();
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "打开摩尔斯工具失败："+e.getMessage()).show();
+            e.printStackTrace();
+        }
     }
 
     @FXML
