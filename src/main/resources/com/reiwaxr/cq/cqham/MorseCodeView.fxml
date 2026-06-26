@@ -1,60 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.MorseCodeController" prefWidth="950" prefHeight="700">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="1000" prefWidth="950" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.MorseCodeController">
     <!-- 顶部 转换输入输出区域 -->
     <top>
         <VBox spacing="10">
-            <Text text="摩尔斯码互转换工具" />
+            <Text text="摩尔斯码互转换工具">
+            <VBox.margin>
+               <Insets left="10.0" right="10.0" top="5.0" />
+            </VBox.margin></Text>
             <!-- 分隔符配置 -->
-            <HBox spacing="20" alignment="CENTER_LEFT">
-                <Label text="字符间隔符:"/>
-                <TextField fx:id="tfCharSep" text="/" prefWidth="60"/>
-                <Label text="单词间隔符:"/>
-                <TextField fx:id="tfWordSep" text="  " prefWidth="60"/>
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="字符间隔符:" />
+                <TextField fx:id="tfCharSep" prefWidth="60" text="  " />
+                <Label text="单词间隔符:" />
+                <TextField fx:id="tfWordSep" prefWidth="70" text=" / " />
+            <VBox.margin>
+               <Insets left="5.0" right="5.0" />
+            </VBox.margin>
             </HBox>
+            <Label text="提示：字符之间用两个半角空格分隔，单词之间用 / 分隔">
+            <VBox.margin>
+               <Insets left="5.0" right="5.0" />
+            </VBox.margin></Label>
             <!-- 正向：文本转摩尔斯 -->
             <VBox spacing="4">
-                <Label text="输入英文文本(字母/数字/标点)"/>
-                <TextArea fx:id="taInputText" promptText="例如 CQ TEST" prefHeight="80"/>
-                <HBox spacing="10">
-                    <Button fx:id="btnToMorse" text="转为摩尔斯码"/>
-                    <Button fx:id="btnCopyMorse" text="复制摩尔斯结果"/>
-                </HBox>
-                <Label text="转换结果(摩尔斯码)"/>
-                <TextArea fx:id="taMorseResult" editable="false" prefHeight="80"/>
+                <Label text="输入英文文本(字母/数字/标点)">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></Label>
+                <TextArea fx:id="taInputText" prefHeight="81.0" prefWidth="939.0" promptText="例如 CQ TEST">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextArea>
+                <Button fx:id="btnCopyMorse" onAction="#btnCopyMorseClick" text="复制摩尔斯结果">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></Button>
+                <Label text="转换结果(摩尔斯码)">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></Label>
+                <TextArea fx:id="taMorseResult" disable="true" editable="false" prefHeight="86.0" prefWidth="939.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></TextArea>
             </VBox>
-            <Separator/>
+            <Separator />
             <!-- 反向：摩尔斯转文本 -->
             <VBox spacing="4">
-                <Label text="输入摩尔斯码（字符用/分隔，单词用两个空格）"/>
-                <TextArea fx:id="taInputMorse" promptText="-.-/--/  -/./.../..." prefHeight="80"/>
-                <HBox spacing="10">
-                    <Button fx:id="btnToText" text="还原文本"/>
-                    <Button fx:id="btnCopyText" text="复制文字结果"/>
-                </HBox>
-                <Label text="还原文字结果"/>
-                <TextArea fx:id="taTextResult" editable="false" prefHeight="80"/>
+                <Label text="输入摩尔斯码（字符用两个空格分隔，单词用 / 分隔）">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></Label>
+                <TextArea fx:id="taInputMorse" prefHeight="79.0" prefWidth="939.0" promptText="-.-.  --.- / -  .  ...  -">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextArea>
+                <Button fx:id="btnCopyText" onAction="#btnCopyTextClick" text="复制文字结果">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></Button>
+                <Label text="还原文字结果">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></Label>
+                <TextArea fx:id="taTextResult" disable="true" editable="false" prefHeight="89.0" prefWidth="939.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="16.0" />
+               </font></TextArea>
             </VBox>
             <HBox spacing="15">
-                <Button fx:id="btnClearAll" text="清空全部"/>
-                <Button fx:id="btnCloseWin" text="关闭窗口"/>
+                <Button fx:id="btnClearAll" onAction="#btnClearAllClick" text="清空全部">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin></Button>
+                <Button fx:id="btnCloseWin" onAction="#btnCloseWinClick" text="关闭窗口">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin></Button>
             </HBox>
         </VBox>
     </top>
 
     <!-- 底部 速查表 -->
     <bottom>
-        <VBox spacing="5">
-            <Text text="摩尔斯码速查表" />
-            <TableView fx:id="tbMorseTable" prefHeight="260">
-                <columns>
-                    <TableColumn text="字符" fx:id="charKeyCol" prefWidth="80" />
-                    <TableColumn text="摩尔斯码" fx:id="morseCodeCol" prefWidth="180" />
-                </columns>
-            </TableView>
-        </VBox>
+        <TitledPane prefHeight="0.0" prefWidth="950.0" text="摩尔斯码速查表">
+            <content>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="420" minHeight="420" prefHeight="420" vbarPolicy="AS_NEEDED">
+                    <content>
+                        <FlowPane fx:id="fpMorseTable" hgap="10" style="-fx-padding: 10;" vgap="10" />
+                    </content>
+                    <padding>
+                        <Insets bottom="0" left="0" right="0" top="0" />
+                    </padding>
+                </ScrollPane>
+            </content>
+         <BorderPane.margin>
+            <Insets top="15.0" />
+         </BorderPane.margin>
+        </TitledPane>
     </bottom>
 </BorderPane>

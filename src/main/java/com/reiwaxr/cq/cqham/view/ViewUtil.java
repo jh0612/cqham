@@ -27,7 +27,7 @@ public class ViewUtil {
                 throw new IllegalArgumentException("FXML file not found: " + fxmlPath);
             }
             Parent root = FXMLLoader.load(resource);
-            Scene scene = new Scene(root, 1000, 700);
+            Scene scene = new Scene(root, 1100, 750);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
