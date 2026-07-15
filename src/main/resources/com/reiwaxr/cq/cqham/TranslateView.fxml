@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.TranslateViewController" prefWidth="1100" prefHeight="750">
+    <!-- 顶部操作栏 -->
+    <top>
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Text text="翻译方向："/>
+            <ComboBox fx:id="cbLang" prefWidth="220"/>
+            <Button fx:id="btnTranslateText" onAction="#btnTranslateText" text="执行翻译"/>
+            <Button fx:id="btnUploadDoc" onAction="#btnUploadDoc" text="文档翻译(预留)"/>
+            <Button fx:id="btnSaveVocab" onAction="#btnSaveVocab" text="保存词汇到词库"/>
+            <Button fx:id="btnBackMain" onAction="#btnBackMain" text="返回首页"/>
+        </HBox>
+    </top>
+
+    <!-- 中间输入输出区域 -->
+    <center>
+        <HBox spacing="20">
+            <VBox spacing="8" prefWidth="420">
+                <Text text="原文输入"/>
+                <TextArea fx:id="taSource" prefHeight="500" wrapText="true"/>
+                <Text text="词汇分类："/>
+                <ComboBox fx:id="cbWordType" prefWidth="180"/>
+            </VBox>
+            <VBox spacing="8" prefWidth="420">
+                <Text text="翻译结果"/>
+                <TextArea fx:id="taTarget" prefHeight="500" wrapText="true" editable="false"/>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

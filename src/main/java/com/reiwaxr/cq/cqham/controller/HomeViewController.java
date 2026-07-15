@@ -23,6 +23,9 @@ import static com.reiwaxr.cq.cqham.common.PagePath.*;
  */
 public class HomeViewController {
 
+    /* 跳转DeepL翻译页面按钮 */
+    @FXML
+    private Button btnGoTranslate;
     /* 预留：其他工具按钮（示例） */
     @FXML
     private Button btnGoCall;
@@ -88,6 +91,23 @@ public class HomeViewController {
         }
     }
 
+    /**
+     * 跳转到DeepL翻译页面
+     * @param actionEvent ActionEvent
+     */
+    @FXML
+    public void btnGoTranslateClick(ActionEvent actionEvent) {
+        try {
+            // 获取当前窗口
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            // 跳转日志页面 fxml 路径
+            ViewUtil.switchView(DEEPL_TRANSLATE_PAGE, stage);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "打开DeepL翻译页面失败："+e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     void initialize() {
         assert btnGoCall != null : "fx:id=\"btnGoCall\" was not injected: check your FXML file 'HomeView.fxml'.";
@@ -95,5 +115,6 @@ public class HomeViewController {
         assert btnGoLog != null : "fx:id=\"btnGoLog\" was not injected: check your FXML file 'HomeView.fxml'.";
 
     }
+
 
 }

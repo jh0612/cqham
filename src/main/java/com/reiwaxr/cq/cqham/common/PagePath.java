@@ -14,5 +14,7 @@ public final class PagePath {
     public static final String EDIT_LOG_DIALOG = "/com/reiwaxr/cq/cqham/EditLogDialog.fxml";
     // 摩尔斯码速查互转工具
     public static final String MORSE_CODE_VIEW = "/com/reiwaxr/cq/cqham/MorseCodeView.fxml";
+    // DeepL翻译页面
+    public static final String DEEPL_TRANSLATE_PAGE = "/com/reiwaxr/cq/cqham/TranslateView.fxml";
     private PagePath(){}
 }

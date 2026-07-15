@@ -34,7 +34,12 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnGoCall" mnemonicParsing="false" onAction="#btnGoCallClick" prefHeight="30.0" prefWidth="120.0" text="呼号查询">
+                  <Button fx:id="btnGoCall" mnemonicParsing="false" onAction="#btnGoCallClick" prefHeight="30.0" prefWidth="120.0" text="摩尔斯码工具">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnGoTranslate" mnemonicParsing="false" onAction="#btnGoTranslateClick" prefHeight="30.0" prefWidth="120.0" text="DeepL翻译工具">
                      <font>
                         <Font size="14.0" />
                      </font>

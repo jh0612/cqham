@@ -4,6 +4,7 @@ module com.reiwaxr.cq.cqham {
     requires static lombok;
     // SQLite驱动模块名
     requires org.xerial.sqlitejdbc;
+    requires deepl.java;
 
     opens com.reiwaxr.cq.cqham to javafx.fxml;
     exports com.reiwaxr.cq.cqham;

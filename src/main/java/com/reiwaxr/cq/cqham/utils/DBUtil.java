@@ -20,6 +20,17 @@ public class DBUtil {
      * 程序启动时初始化：创建数据表，不存在则新建
      */
     public static void initTable() {
+
+        // 翻译内容记录表
+        String createTranslationTable = """
+                CREATE TABLE IF NOT EXISTS translation_text (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    source_text TEXT NOT NULL,
+                    target_text TEXT,
+                    word_type TEXT,
+                    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                """;
         // 无线电通联记录表
         String createRadioLogTable = """
             CREATE TABLE IF NOT EXISTS radio_log (
@@ -67,6 +78,7 @@ public class DBUtil {
             stmt.execute(createRadioLogTable);
             stmt.execute(createDataTable);
             stmt.execute(createFileTable);
+            stmt.execute(createTranslationTable);
             System.out.println("数据表初始化完成，无重复创建");
         } catch (SQLException e) {
             e.printStackTrace();
