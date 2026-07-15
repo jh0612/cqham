@@ -37,7 +37,7 @@ public class TranslateViewController {
 
     // 语言映射 key:下拉显示文本, value:DeepL语言编码
     private final Map<String, String> langMap = Map.of(
-            "中文 → 英文", "EN",
+            "中文 → 英文", "en-US",
             "中文 → 日文", "JA",
             "英文 → 中文", "ZH",
             "日文 → 中文", "ZH"
