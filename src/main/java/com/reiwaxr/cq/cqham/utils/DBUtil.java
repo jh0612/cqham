@@ -120,7 +120,7 @@ public class DBUtil {
         }
         if (hasColumn(conn, "vocabulary", "word_type")) {
             try (Statement stmt = conn.createStatement()) {
-                stmt.executeUpdate("UPDATE vocabulary SET tag_name = COALESCE(tag_name, word_type) WHERE tag_name IS NULL OR tag_name = ''");
+                stmt.executeUpdate("UPDATE vocabulary SET tag_name = COALESCE(tag_name, tag_name) WHERE tag_name IS NULL OR tag_name = ''");
             }
         }
         if (!hasColumn(conn, "vocabulary", "delete_flg")) {

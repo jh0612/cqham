@@ -10,6 +10,7 @@ import com.reiwaxr.cq.cqham.dao.VocabularyDao;
 import com.reiwaxr.cq.cqham.dao.VocabularyTagDao;
 import com.reiwaxr.cq.cqham.entity.Vocabulary;
 import com.reiwaxr.cq.cqham.view.ViewUtil;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert;
@@ -40,6 +41,7 @@ import static com.reiwaxr.cq.cqham.common.PagePath.VOCABULARY_VIEW_PAGE;
  * @Date 2026-07-10 17:16
  */
 public class TranslateViewController {
+
     private record LanguageDirection(String sourceLangCode, String targetLangCode) {}
 
     @FXML

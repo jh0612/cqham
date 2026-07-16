@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +44,7 @@ public class VocabularyDao {
             while (rs.next()) {
                 list.add(convertRow(rs));
             }
+
         }
         return list;
     }
@@ -94,7 +99,8 @@ public class VocabularyDao {
         vocab.setDeleteFlg(rs.getInt("delete_flg"));
         Timestamp createTime = rs.getTimestamp("create_time");
         if (createTime != null) {
-            vocab.setCreateTime(createTime.toLocalDateTime());
+            LocalDateTime createTimeAtz = createTime.toInstant().atZone(ZoneId.of("Asia/Shanghai")).toLocalDateTime();
+            vocab.setCreateTime(createTimeAtz);
         }
         Timestamp deletedAt = rs.getTimestamp("deleted_at");
         if (deletedAt != null) {

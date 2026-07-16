@@ -22,6 +22,7 @@
             <Button fx:id="btnTranslateText" onAction="#btnTranslateText" text="执行翻译" />
             <Button fx:id="btnUploadDoc" onAction="#btnUploadDoc" text="文档翻译(预留)" />
             <Button fx:id="btnSaveVocab" onAction="#btnSaveVocab" text="保存词汇到词库" />
+            <Button fx:id="btnOpenVocabPage" onAction="#btnOpenVocabPage" text="词库标签管理" />
             <Button fx:id="btnBackMain" onAction="#btnBackMain" text="返回首页" />
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

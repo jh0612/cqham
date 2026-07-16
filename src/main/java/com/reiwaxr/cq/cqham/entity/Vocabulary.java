@@ -61,14 +61,6 @@ public class Vocabulary {
         this.tagName = tagName;
     }
 
-    public String getWordType() {
-        return tagName;
-    }
-
-    public void setWordType(String wordType) {
-        this.tagName = wordType;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }

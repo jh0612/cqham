@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.reiwaxr.cq.cqham.common.PagePath.DEEPL_TRANSLATE_PAGE;
 import static com.reiwaxr.cq.cqham.common.PagePath.MAIN_PAGE;
 
 public class VocabularyViewController {
@@ -93,7 +94,7 @@ public class VocabularyViewController {
     @FXML
     public void btnBackMain() throws IOException {
         Stage stage = (Stage) tbVocabulary.getScene().getWindow();
-        ViewUtil.switchView(MAIN_PAGE, stage);
+        ViewUtil.switchView(DEEPL_TRANSLATE_PAGE, stage);
     }
 
     private void reloadTags() {
