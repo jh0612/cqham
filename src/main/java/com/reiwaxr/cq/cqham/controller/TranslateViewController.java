@@ -99,6 +99,7 @@ public class TranslateViewController {
     }
 
     // 保存词汇到SQLite词库
+    // TODO 新建日期不是上海时区，后续可考虑使用ZonedDateTime或LocalDateTime.now(ZoneId.of("Asia/Shanghai"))来转换为上海时间
     @FXML
     public void btnSaveVocab() {
         String source = taSource.getText().trim();
