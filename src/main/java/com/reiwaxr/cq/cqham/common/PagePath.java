@@ -16,5 +16,7 @@ public final class PagePath {
     public static final String MORSE_CODE_VIEW = "/com/reiwaxr/cq/cqham/MorseCodeView.fxml";
     // DeepL翻译页面
     public static final String DEEPL_TRANSLATE_PAGE = "/com/reiwaxr/cq/cqham/TranslateView.fxml";
+    // 词库查询页面
+    public static final String VOCABULARY_VIEW_PAGE = "/com/reiwaxr/cq/cqham/VocabularyView.fxml";
     private PagePath(){}
 }

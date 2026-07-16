@@ -13,17 +13,19 @@ public class Vocabulary {
     private Integer id;
     private String sourceText;   // 原文
     private String targetText;   // 译文
-    private String wordType;     // 分类：名词/短句/专业词汇
+    private String tagName;     // 分类：名词/短句/专业词汇
     private LocalDateTime createTime;
+    private Integer deleteFlg;
+    private LocalDateTime deletedAt;
 
     public Vocabulary() {
     }
 
-    public Vocabulary(Integer id, String sourceText, String targetText, String wordType, LocalDateTime createTime) {
+    public Vocabulary(Integer id, String sourceText, String targetText, String tagName, LocalDateTime createTime) {
         this.id = id;
         this.sourceText = sourceText;
         this.targetText = targetText;
-        this.wordType = wordType;
+        this.tagName = tagName;
         this.createTime = createTime;
     }
 
@@ -51,12 +53,20 @@ public class Vocabulary {
         this.targetText = targetText;
     }
 
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
     public String getWordType() {
-        return wordType;
+        return tagName;
     }
 
     public void setWordType(String wordType) {
-        this.wordType = wordType;
+        this.tagName = wordType;
     }
 
     public LocalDateTime getCreateTime() {
@@ -65,5 +75,21 @@ public class Vocabulary {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getDeleteFlg() {
+        return deleteFlg;
+    }
+
+    public void setDeleteFlg(Integer deleteFlg) {
+        this.deleteFlg = deleteFlg;
+    }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }

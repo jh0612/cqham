@@ -38,11 +38,14 @@ public class HomeViewController {
     @FXML
     private Button btnGoLog;
 
+    @FXML
+    private Button btnGoVocab;
+
     /**
      跳转到通联日志页面
      */
     @FXML
-    public void btnGoLogClick(ActionEvent event){
+    private void btnGoLogClick(ActionEvent event){
         try {
             // 获取当前窗口
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
@@ -59,7 +62,7 @@ public class HomeViewController {
      * @param event ActionEvent
      */
     @FXML
-    public void btnGoFreqClick(ActionEvent event) {
+    private void btnGoFreqClick(ActionEvent event) {
         try {
             // 获取当前窗口
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
@@ -72,7 +75,7 @@ public class HomeViewController {
     }
 
     @FXML
-    public void btnGoCallClick(ActionEvent event) {
+    private void btnGoCallClick(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(MORSE_CODE_VIEW));
             Parent root = loader.load();
@@ -96,7 +99,7 @@ public class HomeViewController {
      * @param actionEvent ActionEvent
      */
     @FXML
-    public void btnGoTranslateClick(ActionEvent actionEvent) {
+    private void btnGoTranslateClick(ActionEvent actionEvent) {
         try {
             // 获取当前窗口
             Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
@@ -104,6 +107,17 @@ public class HomeViewController {
             ViewUtil.switchView(DEEPL_TRANSLATE_PAGE, stage);
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "打开DeepL翻译页面失败："+e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void btnGoVocabClick(ActionEvent actionEvent) {
+        try {
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            ViewUtil.switchView(VOCABULARY_VIEW_PAGE, stage);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "打开词库查询页面失败：" + e.getMessage()).show();
             throw new RuntimeException(e);
         }
     }

@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import static com.reiwaxr.cq.cqham.common.PagePath.EDIT_LOG_DIALOG;
 import static com.reiwaxr.cq.cqham.common.PagePath.MAIN_PAGE;
+
 /**
  * @Description 通联日志检索编辑页面
  * @Version v1.0

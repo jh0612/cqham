@@ -39,9 +39,9 @@ public class LogViewController {
 
     // =====================  按钮 =====================
     /* 单选按钮-模拟模式 */
-    @FXML public RadioButton radiobuttonFx;
+    @FXML private RadioButton radiobuttonFx;
     /* 单选按钮-数字模式ysf */
-    @FXML public RadioButton radiobuttonYsf;
+    @FXML private RadioButton radiobuttonYsf;
     /* 单选按钮-数字模式dmr */
     @FXML private RadioButton radiobuttonDmr;
     /* 返回主菜单按钮 */
@@ -101,11 +101,11 @@ public class LogViewController {
     /* 频率微调器 */
     @FXML private Spinner<Double> spfrequency;
     /* 姓名输入框 */
-    @FXML public TextField tfname;
+    @FXML private TextField tfname;
     /* QTH输入框 */
     @FXML private TextField tfQth;
     /* 住址输入框 */
-    @FXML public TextField tfAddress;
+    @FXML private TextField tfAddress;
     /* 信号报告下拉框 */
     @FXML private ChoiceBox<String> cbsignalReport;
     /* 功率下拉框 */
@@ -119,7 +119,7 @@ public class LogViewController {
     /* 通联时间选择框 */
     @FXML private Spinner<String> spConnectTime;
     /* 频率模式单选框群组 */
-    @FXML public ToggleGroup frequencyMode;
+    @FXML private ToggleGroup frequencyMode;
     // ===================== 常数定义等 =====================
     // 时分秒格式化器
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
@@ -308,7 +308,7 @@ public class LogViewController {
      * 返回主菜单
      */
     @FXML
-    public void btnBackMainClick(ActionEvent event){
+    private void btnBackMainClick(ActionEvent event){
         try {
             // 清空表单
             btnClearFormClick();
@@ -326,7 +326,7 @@ public class LogViewController {
      * 保存按钮一次性insert表格全部内容
      */
     @FXML
-    public void btnSaveClick(ActionEvent actionEvent) {
+    private void btnSaveClick(ActionEvent actionEvent) {
         if(logData.isEmpty()){
             new Alert(Alert.AlertType.WARNING,"表格暂无待保存记录！").show();
             return;
@@ -342,7 +342,7 @@ public class LogViewController {
      * 需求5 查询按钮跳转查询页面
      */
     @FXML
-    public void btnQueryClick(ActionEvent event) {
+    private void btnQueryClick(ActionEvent event) {
         // 校验内存缓存是否存在未保存数据
         if (!logData.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -378,7 +378,7 @@ public class LogViewController {
      * @param event ActionEvent
      */
     @FXML
-    public void btnEditClick(ActionEvent event) {
+    private void btnEditClick(ActionEvent event) {
         RadioLog selected = tbLogList.getSelectionModel().getSelectedItem();
         if (selected == null) {
             new Alert(Alert.AlertType.WARNING, "请选中需要编辑的记录").show();

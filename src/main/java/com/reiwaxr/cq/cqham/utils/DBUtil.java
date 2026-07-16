@@ -1,7 +1,9 @@
 package com.reiwaxr.cq.cqham.utils;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -28,6 +30,27 @@ public class DBUtil {
                     source_text TEXT NOT NULL,
                     target_text TEXT,
                     word_type TEXT,
+                    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                """;
+
+        String createVocabularyTagTable = """
+                CREATE TABLE IF NOT EXISTS vocabulary_tag (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    tag_name TEXT NOT NULL UNIQUE,
+                    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                """;
+
+        String createVocabularyTable = """
+                CREATE TABLE IF NOT EXISTS vocabulary (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    source_text TEXT NOT NULL,
+                    target_text TEXT NOT NULL,
+                    tag_name TEXT NOT NULL,
+                    delete_flg INTEGER NOT NULL DEFAULT 0,
+                    deleted_at TIMESTAMP,
                     create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
                 """;
@@ -79,9 +102,67 @@ public class DBUtil {
             stmt.execute(createDataTable);
             stmt.execute(createFileTable);
             stmt.execute(createTranslationTable);
+            stmt.execute(createVocabularyTagTable);
+            stmt.execute(createVocabularyTable);
+            ensureVocabularyColumns(conn);
+            seedVocabularyTags(conn);
             System.out.println("数据表初始化完成，无重复创建");
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void ensureVocabularyColumns(Connection conn) throws SQLException {
+        if (!hasColumn(conn, "vocabulary", "tag_name")) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute("ALTER TABLE vocabulary ADD COLUMN tag_name TEXT");
+            }
+        }
+        if (hasColumn(conn, "vocabulary", "word_type")) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate("UPDATE vocabulary SET tag_name = COALESCE(tag_name, word_type) WHERE tag_name IS NULL OR tag_name = ''");
+            }
+        }
+        if (!hasColumn(conn, "vocabulary", "delete_flg")) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute("ALTER TABLE vocabulary ADD COLUMN delete_flg INTEGER NOT NULL DEFAULT 0");
+            }
+        }
+        if (!hasColumn(conn, "vocabulary", "deleted_at")) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute("ALTER TABLE vocabulary ADD COLUMN deleted_at TIMESTAMP");
+            }
+        }
+    }
+
+    private static boolean hasColumn(Connection conn, String tableName, String columnName) throws SQLException {
+        String sql = "PRAGMA table_info(" + tableName + ")";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                if (columnName.equalsIgnoreCase(rs.getString("name"))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    private static void seedVocabularyTags(Connection conn) throws SQLException {
+        String[] defaults = {"名词", "动词", "短句", "专业术语", "日常对话"};
+        String insertSql = "INSERT OR IGNORE INTO vocabulary_tag(tag_name) VALUES (?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+            for (String tagName : defaults) {
+                pstmt.setString(1, tagName);
+                pstmt.executeUpdate();
+            }
+        }
+
+        if (hasColumn(conn, "vocabulary", "tag_name")) {
+            String syncSql = "INSERT OR IGNORE INTO vocabulary_tag(tag_name) SELECT DISTINCT tag_name FROM vocabulary WHERE tag_name IS NOT NULL AND tag_name <> ''";
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate(syncSql);
+            }
         }
     }
 }
