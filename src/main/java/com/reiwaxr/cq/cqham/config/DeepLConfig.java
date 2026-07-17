@@ -8,7 +8,7 @@ public class DeepLConfig {
     // 本地DeepLX代理地址
     private static final String PROXY_HOST = "http://127.0.0.1:1188";
     // 官方API Key（使用代理时无需填写）模式切换：""=本地DeepLX代理；有值=官方DeepL API
-    private static final String OFFICIAL_AUTH_KEY = "97301d40-c28e-4928-a12c-3af0e88bc939:fx";
+    private static final String OFFICIAL_AUTH_KEY = "939:fx";
 
     // 获取翻译客户端
     public static DeepLClient getClient() {
