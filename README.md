@@ -112,3 +112,30 @@ AiApiService.java（AI API 调用）
 
 
 https://reiticia.github.io/lesson073.html#%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6
+
+安全配置
+
+AI 管理员模式不再从仓库内配置文件读取 API Key。请在启动前通过环境变量或 JVM 参数注入：
+
+PowerShell:
+$env:CQHAM_AI_ADMIN_API_KEY="你的Qwen API Key"
+$env:CQHAM_DEEPL_AUTH_KEY="你的DeepL API Key"
+$env:CQHAM_AI_API_BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1"
+$env:CQHAM_AI_API_DEFAULT_MODEL="qwen-plus"
+
+或使用 JVM 参数:
+-Dcqham.ai.admin.apikey=你的Qwen API Key
+-Dcqham.deepl.auth-key=你的DeepL API Key
+-Dcqham.ai.api.base-url=https://dashscope.aliyuncs.com/compatible-mode/v1
+-Dcqham.ai.api.default-model=qwen-plus
+
+如果希望在一个 VM options 中集中写多个密钥，也可以使用统一参数，格式如下:
+-Dcqham.api.keys="ai=你的Qwen API Key;deepl=你的DeepL API Key"
+
+统一参数下，AI 会优先读取 `ai`、`qwen`、`dashscope` 对应的值，DeepL 会读取 `deepl` 对应的值。
+
+DeepL 未提供官方 API Key 时，程序会继续使用本地 DeepLX 代理模式。代理地址可通过环境变量 CQHAM_DEEPL_PROXY_HOST 或 JVM 参数 -Dcqham.deepl.proxy-host 覆盖，默认值为 http://127.0.0.1:1188 。
+
+如果使用的不是 DashScope 默认接口，除了 API Key 之外，还需要同时注入对应的 base URL 和模型名称；否则会出现“能登录但发送时报接口错误”的现象。
+
+-Dcqham.ai.admin.apikey=你的QwenKey -Dcqham.deepl.auth-key=你的DeepLKey -Dcqham.ai.api.base-url=https://dashscope.aliyuncs.com/compatible-mode/v1 -Dcqham.ai.api.default-model=qwen-plus
