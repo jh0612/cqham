@@ -44,6 +44,21 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <Button fx:id="btnGoVocab" mnemonicParsing="false" onAction="#btnGoVocabClick" prefHeight="30.0" prefWidth="120.0" text="词库查询">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnGoAiAssistant" mnemonicParsing="false" onAction="#btnGoAiAssistantClick" prefHeight="30.0" prefWidth="120.0" text="AI智能助手" style="-fx-background-color: #27ae60; -fx-text-fill: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnMarkdownTool" mnemonicParsing="false" onAction="#btnMarkdownToolClick" prefHeight="30.0" prefWidth="120.0" text="md转换工具" style="-fx-background-color: #27ae60; -fx-text-fill: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </VBox>
          </center>

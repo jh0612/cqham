@@ -10,12 +10,19 @@ import java.time.LocalDateTime;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class Vocabulary {
+    /* ID */
     private Integer id;
-    private String sourceText;   // 原文
-    private String targetText;   // 译文
-    private String tagName;     // 分类：名词/短句/专业词汇
+    /* 原文 */
+    private String sourceText;
+    /* 译文 */
+    private String targetText;
+    /* 分类：名词/短句/专业词汇 */
+    private String tagName;
+    /* 创建时间 */
     private LocalDateTime createTime;
+    /* 删除标记：0-未删除，1-已删除 */
     private Integer deleteFlg;
+    /* 删除时间 */
     private LocalDateTime deletedAt;
 
     public Vocabulary() {

@@ -38,8 +38,58 @@ public class HomeViewController {
     @FXML
     private Button btnGoLog;
 
+    /* 跳转词汇页面按钮 */
     @FXML
     private Button btnGoVocab;
+
+    /* 跳转AI智能助手页面按钮 */
+    @FXML
+    private Button btnGoAiAssistant;
+
+    /* 跳转markdown转换页面按钮 */
+    @FXML
+    private Button btnMarkdownTool;
+
+
+    /**
+     * 跳转到AI智能助手页面
+     * @param event ActionEvent
+     */
+    @FXML
+    private void btnGoAiAssistantClick(ActionEvent event) {
+        try {
+            // 打开登录对话框
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(AI_LOGIN_DIALOG));
+            Parent root = loader.load();
+            AiLoginDialogController loginController = loader.getController();
+            
+            Stage dialog = new Stage();
+            dialog.setTitle("AI 智能助手 - 登录");
+            dialog.setScene(new Scene(root));
+            dialog.setResizable(false);
+            
+            // 模态锁定父窗口
+            Stage owner = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            dialog.initOwner(owner);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.showAndWait();
+            
+            // 检查登录结果
+            if (loginController.isLoginSuccess()) {
+                String apiKey = loginController.getResultApiKey();
+
+                // 先设置API Key，再打开AI助手页面，确保控制器初始化时能读取到
+                AiAssistantViewController.setGlobalApiKey(apiKey);
+                
+                // 打开AI助手主页面
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                ViewUtil.switchView(AI_ASSISTANT_VIEW, stage);
+            }
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "打开AI助手失败：" + e.getMessage()).show();
+            e.printStackTrace();
+        }
+    }
 
     /**
      跳转到通联日志页面
@@ -74,6 +124,10 @@ public class HomeViewController {
         }
     }
 
+    /**
+     * 跳转到摩尔斯码速查互转工具页面
+     * @param event ActionEvent
+     */
     @FXML
     private void btnGoCallClick(ActionEvent event) {
         try {
@@ -111,6 +165,10 @@ public class HomeViewController {
         }
     }
 
+    /**
+     * 跳转到词库查询页面
+     * @param actionEvent
+     */
     @FXML
     private void btnGoVocabClick(ActionEvent actionEvent) {
         try {
@@ -122,12 +180,33 @@ public class HomeViewController {
         }
     }
 
+    /**
+     * 跳转到markdown转换页面
+     * @param actionEvent
+     */
+    @FXML
+    private void btnMarkdownToolClick(ActionEvent actionEvent) {
+        try {
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            ViewUtil.switchView(MARKDOWN_CONVERTER_PAGE, stage);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "打开markdown转换页面失败：" + e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * 初始化方法
+     */
     @FXML
     void initialize() {
         assert btnGoCall != null : "fx:id=\"btnGoCall\" was not injected: check your FXML file 'HomeView.fxml'.";
         assert btnGoFreq != null : "fx:id=\"btnGoFreq\" was not injected: check your FXML file 'HomeView.fxml'.";
         assert btnGoLog != null : "fx:id=\"btnGoLog\" was not injected: check your FXML file 'HomeView.fxml'.";
-
+        assert btnGoVocab != null : "fx:id=\"btnGoVocab\" was not injected: check your FXML file 'HomeView.fxml'.";
+        assert btnGoAiAssistant != null : "fx:id=\"btnGoAiAssistant\" was not injected: check your FXML file 'HomeView.fxml'.";
+        assert btnMarkdownTool != null : "fx:id=\"btnMarkdownTool\" was not injected: check your FXML file 'HomeView.fxml'.";
     }
 
 

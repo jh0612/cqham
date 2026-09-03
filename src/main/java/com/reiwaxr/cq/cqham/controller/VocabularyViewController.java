@@ -26,25 +26,36 @@ import static com.reiwaxr.cq.cqham.common.PagePath.DEEPL_TRANSLATE_PAGE;
 import static com.reiwaxr.cq.cqham.common.PagePath.MAIN_PAGE;
 
 public class VocabularyViewController {
+    /* 词汇管理控制器 */
     @FXML
     private ComboBox<String> cbTagFilter;
+    /* 标签筛选下拉框 */
     @FXML
     private TableView<Vocabulary> tbVocabulary;
+    /* 词汇表格 */
     @FXML
     private TableColumn<Vocabulary, Integer> colId;
+    /* ID列 */
     @FXML
     private TableColumn<Vocabulary, String> colSource;
+    /* 原文列 */
     @FXML
     private TableColumn<Vocabulary, String> colTarget;
+    /* 译文列 */
     @FXML
     private TableColumn<Vocabulary, String> colTag;
+    /* 标签列 */
     @FXML
     private TableColumn<Vocabulary, Object> colCreateTime;
+    /* 创建时间列 */
     @FXML
     private Label lbCount;
 
+    /* 表格数据 */
     private final ObservableList<Vocabulary> tableData = FXCollections.observableArrayList();
+    /* 词汇数据访问对象 */
     private final VocabularyDao vocabularyDao = new VocabularyDao();
+    /* 标签数据访问对象 */
     private final VocabularyTagDao tagDao = new VocabularyTagDao();
 
     @FXML
@@ -59,17 +70,26 @@ public class VocabularyViewController {
         search();
     }
 
+    /**
+     * 搜索按钮事件处理
+     */
     @FXML
     public void btnSearch() {
         search();
     }
 
+    /**
+     * 重置按钮事件处理
+     */
     @FXML
     public void btnReset() {
         cbTagFilter.setValue("全部");
         search();
     }
 
+    /**
+     * 删除按钮事件处理
+     */
     @FXML
     public void btnDelete() {
         Vocabulary selected = tbVocabulary.getSelectionModel().getSelectedItem();
@@ -91,12 +111,18 @@ public class VocabularyViewController {
         }
     }
 
+    /**
+     * 返回主页面按钮事件处理
+     */
     @FXML
     public void btnBackMain() throws IOException {
         Stage stage = (Stage) tbVocabulary.getScene().getWindow();
         ViewUtil.switchView(DEEPL_TRANSLATE_PAGE, stage);
     }
 
+    /**
+     * 重新加载标签列表
+     */
     private void reloadTags() {
         try {
             List<String> tags = new ArrayList<>();
@@ -111,6 +137,9 @@ public class VocabularyViewController {
         }
     }
 
+    /**
+     * 搜索单词
+     */
     private void search() {
         try {
             String selectedTag = cbTagFilter.getValue();
@@ -124,6 +153,12 @@ public class VocabularyViewController {
         }
     }
 
+    /**
+     * 显示警告对话框
+     * @param title 标题
+     * @param msg 消息内容
+     * @param type 警告类型
+     */
     private void showAlert(String title, String msg, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

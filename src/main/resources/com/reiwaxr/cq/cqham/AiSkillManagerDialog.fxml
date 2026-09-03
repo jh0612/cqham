@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.AiSkillManagerDialogController">
+    <left>
+        <VBox spacing="8.0" prefWidth="260.0" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="12.0" left="12.0" right="8.0" top="12.0" /></padding>
+            <children>
+                <Label text="Skill 列表" />
+                <ListView fx:id="lvSkills" VBox.vgrow="ALWAYS" />
+                <HBox spacing="6.0">
+                    <Button onAction="#btnNewSkillClick" text="新建" />
+                    <Button onAction="#btnDeleteSkillClick" text="删除" />
+                    <Button onAction="#btnRefreshClick" text="刷新" />
+                </HBox>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="10.0">
+            <padding><Insets bottom="12.0" left="8.0" right="12.0" top="12.0" /></padding>
+            <children>
+                <GridPane hgap="10.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="Skill 名称:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="tfSkillName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="分类:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <TextField fx:id="tfCategory" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                        <Label text="标签:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfTags" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+
+                        <Label text="启停状态:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="chkSkillEnabled" text="启用 Skill" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    </children>
+                </GridPane>
+
+                <Label text="说明" />
+                <TextArea fx:id="taSkillDescription" prefHeight="70.0" wrapText="true" />
+                <Label text="System Prompt" />
+                <TextArea fx:id="taSystemPrompt" prefHeight="120.0" wrapText="true" />
+                <Label text="Input Template" />
+                <TextArea fx:id="taInputTemplate" prefHeight="120.0" wrapText="true" />
+                <Label text="Output Template" />
+                <TextArea fx:id="taOutputTemplate" prefHeight="90.0" wrapText="true" />
+                <Label text="示例输入" />
+                <TextArea fx:id="taExampleInput" prefHeight="80.0" wrapText="true" />
+                <Label text="示例输出" />
+                <TextArea fx:id="taExampleOutput" prefHeight="80.0" wrapText="true" />
+
+                <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                    <Button onAction="#btnSaveSkillClick" text="保存" />
+                    <Button onAction="#btnCloseClick" text="关闭" />
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

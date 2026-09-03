@@ -42,19 +42,27 @@ import static com.reiwaxr.cq.cqham.common.PagePath.VOCABULARY_VIEW_PAGE;
  */
 public class TranslateViewController {
 
+    /* 语言方向记录 */
     private record LanguageDirection(String sourceLangCode, String targetLangCode) {}
 
+    /* 语言选择下拉框 */
     @FXML
     private ComboBox<String> cbLang;
+    /* 词性选择下拉框 */
     @FXML
     private ComboBox<String> cbWordType;
+    /* 原文文本框 */
     @FXML
     private TextArea taSource;
+    /* 译文文本框 */
     @FXML
     private TextArea taTarget;
 
+    /* 语言映射表 */
     private final Map<String, LanguageDirection> langMap = new LinkedHashMap<>();
+    /* 词库操作对象 */
     private final VocabularyDao vocabDao = new VocabularyDao();
+    /* 词库标签操作对象 */
     private final VocabularyTagDao tagDao = new VocabularyTagDao();
 
     // 页面初始化
@@ -100,6 +108,9 @@ public class TranslateViewController {
 
     // 保存词汇到SQLite词库
     // TODO 新建日期不是上海时区，后续可考虑使用ZonedDateTime或LocalDateTime.now(ZoneId.of("Asia/Shanghai"))来转换为上海时间
+    /**
+     * 保存词汇到SQLite词库
+     */
     @FXML
     public void btnSaveVocab() {
         String source = taSource.getText().trim();
@@ -125,7 +136,9 @@ public class TranslateViewController {
         }
     }
 
-    // 文档翻译预留按钮（仅弹窗提示，后续扩展文件上传逻辑）
+    /**
+     * 文档翻译预留按钮（仅弹窗提示，后续扩展文件上传逻辑）
+     */
     @FXML
     public void btnUploadDoc() {
         Stage stage = (Stage) cbLang.getScene().getWindow();
@@ -176,6 +189,9 @@ public class TranslateViewController {
         ViewUtil.switchView(MAIN_PAGE, stage);
     }
 
+    /**
+     * 复制译文到剪贴板
+     */
     @FXML
     public void btnCopyTarget() {
         String target = taTarget.getText();
@@ -189,6 +205,9 @@ public class TranslateViewController {
         showAlert("成功", "译文已复制到剪贴板", Alert.AlertType.INFORMATION);
     }
 
+    /**
+     * 新增标签
+     */
     @FXML
     public void btnAddTag() {
         TextInputDialog dialog = new TextInputDialog();
@@ -212,6 +231,9 @@ public class TranslateViewController {
         }
     }
 
+    /**
+     * 修改标签
+     */
     @FXML
     public void btnRenameTag() {
         String currentTag = cbWordType.getValue();
@@ -241,6 +263,9 @@ public class TranslateViewController {
         }
     }
 
+    /**
+     * 删除标签
+     */
     @FXML
     public void btnDeleteTag() {
         String currentTag = cbWordType.getValue();
@@ -265,12 +290,19 @@ public class TranslateViewController {
         }
     }
 
+    /**
+     * 打开词库管理页面
+     */
     @FXML
     public void btnOpenVocabPage() throws IOException {
         Stage stage = (Stage) cbWordType.getScene().getWindow();
         ViewUtil.switchView(VOCABULARY_VIEW_PAGE, stage);
     }
 
+    /**
+     * 重新加载标签列表，并尝试选中指定标签
+     * @param selectedTag
+     */
     private void reloadTags(String selectedTag) {
         try {
             List<String> tagNames = tagDao.findAllTagNames();
@@ -287,6 +319,10 @@ public class TranslateViewController {
         }
     }
 
+    /**
+     * 获取当前选择的语言方向
+     * @return LanguageDirection 
+     */
     private LanguageDirection getSelectedDirection() {
         LanguageDirection direction = langMap.get(cbLang.getValue());
         if (direction == null) {
@@ -295,15 +331,27 @@ public class TranslateViewController {
         return direction;
     }
 
+    /**
+     * 根据输入文件名生成翻译结果文件名
+     * @param inputFile
+     * @return String  文件名
+     */
     private String buildTranslatedFileName(File inputFile) {
         String fileName = inputFile.getName();
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex < 0) {
             return fileName + "_translated";
         }
+        // 例如：example.docx -> example_translated.docx
         return fileName.substring(0, dotIndex) + "_translated" + fileName.substring(dotIndex);
     }
 
+    /**
+     * 显示警告对话框
+     * @param title 标题 
+     * @param msg   消息内容
+     * @param type  警告类型
+     */
     private void showAlert(String title, String msg, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

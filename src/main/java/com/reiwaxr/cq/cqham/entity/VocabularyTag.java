@@ -3,9 +3,13 @@ package com.reiwaxr.cq.cqham.entity;
 import java.time.LocalDateTime;
 
 public class VocabularyTag {
+    /* ID */
     private Integer id;
+    /* 标签名称 */
     private String tagName;
+    /* 创建时间 */
     private LocalDateTime createTime;
+    /* 更新时间 */
     private LocalDateTime updateTime;
 
     public Integer getId() {

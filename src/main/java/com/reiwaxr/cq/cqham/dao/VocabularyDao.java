@@ -60,6 +60,12 @@ public class VocabularyDao {
         }
     }
 
+    /**
+     * 根据标签名称统计未删除的词汇数量
+     * @param tagName 标签名称
+     * @return 未删除的词汇数量
+     * @throws SQLException
+     */
     public int countActiveByTag(String tagName) throws SQLException {
         String sql = "SELECT COUNT(1) FROM vocabulary WHERE tag_name = ? AND delete_flg = 0";
         try (Connection conn = DBUtil.getConnection();
@@ -73,6 +79,12 @@ public class VocabularyDao {
         return 0;
     }
 
+    /**
+     * 重命名标签
+     * @param oldTagName 旧标签名称
+     * @param newTagName 新标签名称
+     * @throws SQLException
+     */
     public void renameTag(String oldTagName, String newTagName) throws SQLException {
         String sql = "UPDATE vocabulary SET tag_name = ? WHERE tag_name = ?";
         try (Connection conn = DBUtil.getConnection();
@@ -83,6 +95,11 @@ public class VocabularyDao {
         }
     }
 
+    /**
+     * 清理已删除且创建时间超过一个月的词汇
+     * @param conn 数据库连接
+     * @throws SQLException
+     */
     private void purgeDeletedOlderThanOneMonth(Connection conn) throws SQLException {
         String sql = "DELETE FROM vocabulary WHERE delete_flg = 1 AND create_time <= datetime('now', '-1 month')";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -90,6 +107,12 @@ public class VocabularyDao {
         }
     }
 
+    /**
+     * 将ResultSet中的一行数据转换为Vocabulary对象
+     * @param rs ResultSet
+     * @return Vocabulary对象
+     * @throws SQLException
+     */
     private Vocabulary convertRow(ResultSet rs) throws SQLException {
         Vocabulary vocab = new Vocabulary();
         vocab.setId(rs.getInt("id"));
@@ -109,6 +132,12 @@ public class VocabularyDao {
         return vocab;
     }
 
+    /**
+     * 读取标签名称，如果标签名称为空，则尝试读取word_type字段
+     * @param rs ResultSet
+     * @return 标签名称
+     * @throws SQLException
+     */
     private String readTagName(ResultSet rs) throws SQLException {
         String tagName = rs.getString("tag_name");
         if (tagName == null || tagName.isBlank()) {

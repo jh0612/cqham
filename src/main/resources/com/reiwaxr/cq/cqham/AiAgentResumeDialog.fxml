@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.AiAgentResumeDialogController">
+    <left>
+        <VBox spacing="8.0" prefWidth="320.0" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="12.0" left="12.0" right="8.0" top="12.0" /></padding>
+            <children>
+                <Label text="最近 20 条可恢复记录" />
+                <ListView fx:id="lvRuns" VBox.vgrow="ALWAYS" />
+                <HBox spacing="8.0">
+                    <Button onAction="#btnRefreshClick" text="刷新" />
+                    <Button fx:id="btnDeleteRun" onAction="#btnDeleteClick" text="删除记录" />
+                    <Button onAction="#btnCloseClick" text="关闭" />
+                </HBox>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="10.0">
+            <padding><Insets bottom="12.0" left="8.0" right="12.0" top="12.0" /></padding>
+            <children>
+                <GridPane hgap="10.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="状态:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="lblRunStatus" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="当前步骤:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label fx:id="lblCurrentStep" text="-" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                        <Label text="最近错误:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="lblRecentError" text="-" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+
+                        <Label text="恢复方式:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label fx:id="lblResumeHint" text="请选择可恢复记录" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                    </children>
+                </GridPane>
+
+                <GridPane hgap="10.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="Agent:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <ComboBox fx:id="cbResumeAgent" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="模型:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <ComboBox fx:id="cbResumeModel" prefWidth="180.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                        <Label text="策略:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cbResumeStrategy" prefWidth="140.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="最大步骤:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Spinner fx:id="spResumeMaxSteps" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                        <Label text="开关:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                            <children>
+                                <CheckBox fx:id="chkResumeConfirm" text="执行前确认" />
+                                <CheckBox fx:id="chkResumeUseFileContext" text="使用文件上下文" />
+                                <CheckBox fx:id="chkResumeUseHistory" text="使用历史对话" />
+                            </children>
+                        </HBox>
+                    </children>
+                </GridPane>
+
+                <Label text="用户目标" />
+                <TextArea fx:id="taResumeGoal" prefHeight="90.0" wrapText="true" />
+
+                <GridPane hgap="10.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="场景分类:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="tfResumeSceneName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="子分类:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <TextField fx:id="tfResumeSubCategory" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                    </children>
+                </GridPane>
+
+                <Label text="场景 Prompt" />
+                <TextArea fx:id="taResumeScenePrompt" prefHeight="90.0" wrapText="true" />
+                <Label text="文件上下文" />
+                <TextArea fx:id="taResumeFileContext" prefHeight="100.0" wrapText="true" />
+                <Label text="历史摘要" />
+                <TextArea fx:id="taResumeHistorySummary" prefHeight="100.0" wrapText="true" />
+
+                <TitledPane collapsible="false" expanded="true" text="历史步骤详情">
+                    <content>
+                        <VBox spacing="8.0">
+                            <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0" /></padding>
+                            <children>
+                                <ListView fx:id="lvStepLogs" prefHeight="150.0" />
+                                <Label text="步骤输入" />
+                                <TextArea fx:id="taStepInputDetail" editable="false" prefHeight="80.0" wrapText="true" />
+                                <Label text="步骤输出" />
+                                <TextArea fx:id="taStepOutputDetail" editable="false" prefHeight="100.0" wrapText="true" />
+                                <Label text="错误详情" />
+                                <TextArea fx:id="taStepErrorDetail" editable="false" prefHeight="70.0" wrapText="true" />
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
+
+                <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                    <Button onAction="#btnResumeClick" text="开始恢复" />
+                    <Button onAction="#btnCloseClick" text="关闭" />
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

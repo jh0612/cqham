@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.AiAssistantViewController">
+    <children>
+        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+                    <Label text="🤖 AI 智能助手" textFill="WHITE">
+                        <font><Font name="System Bold" size="18.0" /></font>
+                    </Label>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="lblModelInfo" text="模型: qwen-plus" textFill="#95a5a6" />
+                    <Button fx:id="btnBack" onAction="#btnBackClick" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="返回首页" />
+                </HBox>
+            </top>
+            <center>
+                <VBox spacing="10.0">
+                    <padding><Insets bottom="10" left="15" right="15" top="10" /></padding>
+                    <children>
+                        <!-- 配置区域 -->
+                        <TitledPane collapsible="true" expanded="true" text="📋 配置区域">
+                            <content>
+                                <GridPane hgap="10" vgap="8">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" minWidth="80" prefWidth="100" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints halignment="RIGHT" minWidth="80" prefWidth="100" />
+                                        <ColumnConstraints fillWidth="true" hgrow="ALWAYS" />
+                                    </columnConstraints>
+
+                                    <Label text="模型选择:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <ComboBox fx:id="cbModel" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                    <Label text="API Key:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <PasswordField fx:id="pfApiKey" disable="true" promptText="当前使用的API Key" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                                    <Label text="运行模式:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <HBox alignment="CENTER_LEFT" spacing="12" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                                        <CheckBox fx:id="chkAgentMode" selected="true" text="Agent 模式" />
+                                        <CheckBox fx:id="chkConfirmBeforeRun" selected="true" text="执行前确认" />
+                                        <CheckBox fx:id="chkUseFileContext" selected="true" text="使用上传文件" />
+                                        <CheckBox fx:id="chkUseChatHistory" selected="true" text="使用历史对话" />
+                                    </HBox>
+
+                                    <Label text="场景分类:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <HBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                        <ComboBox fx:id="cbScene" prefWidth="200.0" promptText="选择场景" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></ComboBox>
+                                        <Button fx:id="btnSceneNew" onAction="#btnSceneNewClick" text="新建">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></Button>
+                                    </HBox>
+                                                <Label text="子分类:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <HBox spacing="6" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                        <ComboBox fx:id="cbSubCategory" prefWidth="200" promptText="选择子分类">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></ComboBox>
+
+                                            <Button fx:id="btnSceneEdit" onAction="#btnSceneEditClick" text="编辑">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></Button>
+                                            <Button fx:id="btnSceneCopy" onAction="#btnSceneCopyClick" text="复制">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></Button>
+                                            <Button fx:id="btnSceneDelete" onAction="#btnSceneDeleteClick" text="删除">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></Button>
+                                            <Button fx:id="btnSceneSave" onAction="#btnSceneSaveClick" text="保存当前">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></Button>
+
+                                    </HBox>
+
+                                    <VBox fx:id="vboxAgentConfig" managed="false" spacing="8" visible="true" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="3">
+                                        <children>
+                                            <Separator />
+                                            <GridPane hgap="10" vgap="8">
+                                                <columnConstraints>
+                                                    <ColumnConstraints halignment="RIGHT" minWidth="80" prefWidth="100" />
+                                                    <ColumnConstraints hgrow="ALWAYS" />
+                                                    <ColumnConstraints halignment="RIGHT" minWidth="80" prefWidth="100" />
+                                                    <ColumnConstraints fillWidth="true" hgrow="ALWAYS" />
+                                                </columnConstraints>
+
+                                                <Label text="Agent 类型:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <HBox alignment="CENTER_LEFT" spacing="8" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">
+                                                    <ComboBox fx:id="cbAgentType" prefWidth="220" />
+                                                    <Button fx:id="btnManageAgent" onAction="#btnManageAgentClick" text="管理 Agent" />
+                                                    <Button fx:id="btnManageSkill" onAction="#btnManageSkillClick" text="管理 Skill" />
+                                                    <Button fx:id="btnResumeAgent" onAction="#btnResumeAgentClick" text="恢复执行" />
+                                                </HBox>
+
+                                                <Label text="执行策略:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                <ComboBox fx:id="cbAgentStrategy" prefWidth="160" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                                <Label text="最大步骤数:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <Spinner fx:id="spAgentMaxSteps" prefWidth="90" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                <Label fx:id="lblAgentTypeHint" text="请选择合适的 Agent 类型。系统会根据任务自动推荐更匹配的 Agent，当前已支持翻译链路。" textFill="#7f8c8d" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label fx:id="lblRecoverableRuns" text="没有可恢复的未完成运行" textFill="#7f8c8d" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <rowConstraints>
+                                       <RowConstraints />
+                                       <RowConstraints />
+                                       <RowConstraints />
+                                       <RowConstraints />
+                                    </rowConstraints>
+                                            </GridPane>
+
+                                        </children>
+                                    </VBox>
+
+                                    <Label text="上传文件:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <HBox spacing="8" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                                        <Button fx:id="btnUploadFile" onAction="#btnUploadFileClick" text="选择文件" />
+                                        <Label fx:id="lblFileName" text="未选择文件" textFill="#7f8c8d">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></Label>
+                                        <ComboBox fx:id="cbSheetName" prefWidth="150" promptText="选择Sheet(Excel)" visible="false" />
+                                    </HBox>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                                </GridPane>
+                            </content>
+                        </TitledPane>
+
+                        <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <TitledPane fx:id="tpAgentPlan" collapsible="true" expanded="true" prefWidth="650.0" managed="false" text="🤖 Agent 计划" visible="false">
+                                    <content>
+                                        <VBox spacing="8.0">
+                                            <padding>
+                                                <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
+                                            </padding>
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                    <Label text="目标:" />
+                                                    <Label fx:id="lblAgentPlanGoal" text="未生成计划" wrapText="true" HBox.hgrow="ALWAYS" />
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                    <Label text="状态:" />
+                                                    <Label fx:id="lblAgentPlanStatus" text="空闲" />
+                                                    <Region HBox.hgrow="ALWAYS" />
+                                                    <Button fx:id="btnExecuteAgentPlan" disable="true" managed="false" onAction="#btnExecuteAgentPlanClick" style="-fx-background-color: #2980b9; -fx-text-fill: white;" text="执行计划" />
+                                                </HBox>
+                                                <Label text="计划摘要" />
+                                                <TextArea fx:id="taAgentPlanSummary" editable="false" prefHeight="120.0" promptText="规划完成后会显示摘要" wrapText="true" />
+                                                <Label text="执行步骤" />
+                                                <ListView fx:id="lvAgentPlanSteps" prefHeight="260.0" VBox.vgrow="ALWAYS" />
+                                                <Label text="步骤详情 / Skill 摘要" />
+                                                <TextArea fx:id="taAgentStepDetail" editable="false" prefHeight="180.0" promptText="选择步骤后可查看绑定 Skill 和执行摘要" wrapText="true" />
+                                                <Label text="风险提示" />
+                                                <TextArea fx:id="taAgentRiskNotes" editable="false" prefHeight="110.0" promptText="风险提示会显示在这里" wrapText="true" />
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </TitledPane>
+
+                                 <!-- 对话区域 -->
+                                <TitledPane collapsible="false" expanded="true" text="对话区域" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                    <content>
+                                        <VBox spacing="8">
+                                            <!-- 对话历史显示 -->
+                                            <ScrollPane fx:id="scrollChat" fitToWidth="true" prefWidth="800.0" style="-fx-background: white;" VBox.vgrow="ALWAYS">
+                                                <content>
+                                                    <VBox fx:id="vboxChatHistory" spacing="8" style="-fx-padding: 10;" />
+                                                </content>
+                                            </ScrollPane>
+
+                                            <!-- 用户输入区域 -->
+                                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                                <TextArea fx:id="taUserInput" prefHeight="50.0" promptText="输入你的问题... (Ctrl+Enter 发送)" wrapText="true" HBox.hgrow="ALWAYS" />
+                                                <VBox spacing="5">
+                                                    <Button fx:id="btnSend" onAction="#btnSendClick" prefWidth="80" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="发送" />
+                                                    <Button fx:id="btnCancel" disable="true" onAction="#btnCancelClick" prefWidth="80" style="-fx-background-color: #e67e22; -fx-text-fill: white;" text="取消" />
+                                                    <Button fx:id="btnClear" onAction="#btnClearClick" prefWidth="80" text="清空" />
+                                                    <Button fx:id="btnRegenerate" onAction="#btnRegenerateClick" prefWidth="80" text="重新生成" />
+                                                </VBox>
+                                            </HBox>
+                                        </VBox>
+                                    </content>
+                                </TitledPane>
+                            </children>
+                        </HBox>
+
+                        <!-- 底部操作栏 -->
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Button fx:id="btnExportMd" onAction="#btnExportMdClick" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="导出为Markdown" />
+                            <TextField fx:id="tfFileName" promptText="文件名（可自定义）" HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lblStatus" text="就绪" textFill="#7f8c8d" />
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

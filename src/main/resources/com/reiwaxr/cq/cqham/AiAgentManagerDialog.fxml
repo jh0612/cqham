@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.reiwaxr.cq.cqham.controller.AiAgentManagerDialogController">
+    <left>
+        <VBox spacing="8.0" prefWidth="280.0" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="12.0" left="12.0" right="8.0" top="12.0" /></padding>
+            <children>
+                <Label text="Agent 列表" />
+                <ListView fx:id="lvAgents" VBox.vgrow="ALWAYS" />
+                <HBox spacing="6.0">
+                    <Button onAction="#btnNewAgentClick" text="新建" />
+                    <Button fx:id="btnCopyAgent" onAction="#btnCopyAgentClick" text="复制" />
+                    <Button fx:id="btnDeleteAgent" onAction="#btnDeleteAgentClick" text="删除" />
+                    <Button onAction="#btnRefreshClick" text="刷新" />
+                </HBox>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="10.0">
+            <padding><Insets bottom="12.0" left="8.0" right="12.0" top="12.0" /></padding>
+            <children>
+                <Label fx:id="lblEditMode" text="当前为可编辑 Agent" />
+                <GridPane hgap="10.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="100.0" prefWidth="110.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="RIGHT" minWidth="100.0" prefWidth="110.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="Agent 名称:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="tfAgentName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="固定模板:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <ComboBox fx:id="cbBaseTemplate" prefWidth="240.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                        <Label text="启停状态:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="chkAgentEnabled" text="启用 Agent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="结果汇总:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="chkFinalSummaryEnabled" text="追加最终汇总" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    </children>
+                </GridPane>
+
+                <Label text="说明" />
+                <TextArea fx:id="taAgentDescription" prefHeight="70.0" wrapText="true" />
+                <Label text="Planner Prompt" />
+                <TextArea fx:id="taPlannerPrompt" prefHeight="140.0" wrapText="true" />
+                <Label text="Execution Prompt" />
+                <TextArea fx:id="taExecutionPrompt" prefHeight="140.0" wrapText="true" />
+
+                <TitledPane collapsible="false" expanded="true" text="固定步骤文案编辑">
+                    <content>
+                        <VBox spacing="8.0">
+                            <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0" /></padding>
+                            <children>
+                                <ListView fx:id="lvTemplateSteps" prefHeight="140.0" />
+                                <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                                    <Button fx:id="btnTemplateSaveAs" onAction="#btnTemplateSaveAsClick" text="内置模板另存为" />
+                                    <Button fx:id="btnTemplateStepAdd" onAction="#btnTemplateStepAddClick" text="新增步骤" />
+                                    <Button fx:id="btnTemplateStepDelete" onAction="#btnTemplateStepDeleteClick" text="删除步骤" />
+                                    <Button fx:id="btnTemplateStepMoveUp" onAction="#btnTemplateStepMoveUpClick" text="上移" />
+                                    <Button fx:id="btnTemplateStepMoveDown" onAction="#btnTemplateStepMoveDownClick" text="下移" />
+                                </HBox>
+                                <GridPane hgap="8.0" vgap="8.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" minWidth="90.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+                                    <children>
+                                        <Label text="步骤名称:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="tfTemplateStepName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label text="步骤目标:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <TextArea fx:id="taTemplateStepPurpose" prefHeight="64.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label text="预期输出:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <TextArea fx:id="taTemplateStepExpectedOutput" prefHeight="64.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    </children>
+                                </GridPane>
+                                <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                                    <Button fx:id="btnApplyTemplateStep" onAction="#btnApplyTemplateStepClick" text="应用当前步骤修改" />
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
+
+                <TitledPane collapsible="false" expanded="true" text="步骤 Skill 绑定">
+                    <content>
+                        <VBox spacing="8.0">
+                            <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0" /></padding>
+                            <children>
+                                <HBox spacing="8.0">
+                                    <ComboBox fx:id="cbBindingStep" prefWidth="180.0" />
+                                    <ComboBox fx:id="cbBindingSkill" prefWidth="240.0" />
+                                    <Button onAction="#btnAddBindingClick" text="追加绑定" />
+                                    <Button onAction="#btnRemoveBindingClick" text="移除绑定" />
+                                    <Button onAction="#btnMoveBindingUpClick" text="上移" />
+                                    <Button onAction="#btnMoveBindingDownClick" text="下移" />
+                                </HBox>
+                                <ListView fx:id="lvBindings" prefHeight="150.0" />
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
+
+                <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                    <Button fx:id="btnSaveAgent" onAction="#btnSaveAgentClick" text="保存" />
+                    <Button onAction="#btnCloseClick" text="关闭" />
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

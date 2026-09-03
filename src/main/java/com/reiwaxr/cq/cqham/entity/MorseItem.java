@@ -6,7 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MorseItem {
+    /* 字符 */
     private String charKey;
+    /* 摩尔斯电码 */
     private String morseCode;
 
     public MorseItem(String charKey, String morseCode) {

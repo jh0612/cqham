@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.reiwaxr.cq.cqham.controller.MarkdownToolController"
+            prefHeight="800.0" prefWidth="1200.0"
+            style="-fx-background-color: #f4f4f4;">
+
+    <VBox spacing="15" style="-fx-padding: 20;">
+        <!-- 锚定约束：让 VBox 填满整个 AnchorPane，并留有边距 -->
+        <AnchorPane.topAnchor>10.0</AnchorPane.topAnchor>
+        <AnchorPane.bottomAnchor>10.0</AnchorPane.bottomAnchor>
+        <AnchorPane.leftAnchor>10.0</AnchorPane.leftAnchor>
+        <AnchorPane.rightAnchor>10.0</AnchorPane.rightAnchor>
+
+        <Label text="Markdown 转换工具" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+        <!-- 输入选择区域 -->
+        <VBox spacing="10">
+            <HBox spacing="10">
+                <Button fx:id="chooseFileBtn" text="选择文件" onAction="#onChooseFile"/>
+                <Button fx:id="chooseFolderBtn" text="选择文件夹" onAction="#onChooseFolder"/>
+            </HBox>
+            <TextField fx:id="inputPathField" promptText="未选择（支持 docx/xlsx/pdf/ppt/pptx）" editable="false" HBox.hgrow="ALWAYS"/>
+        </VBox>
+
+        <!-- 输出路径 -->
+        <HBox spacing="10">
+            <TextField fx:id="outputPathField" promptText="请选择输出目录" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="browseOutputBtn" text="浏览..." onAction="#onBrowseOutput"/>
+        </HBox>
+
+        <!-- 转换按钮 -->
+        <HBox spacing="10">
+            <Button fx:id="convertBtn" text="转换为 Markdown" onAction="#onConvert"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;"
+                maxWidth="200"/>
+            <Button fx:id="cancelBtn" text="取消转换" onAction="#onCancel"
+                style="-fx-background-color: #f57c00; -fx-text-fill: white; -fx-font-size: 14px;"
+                maxWidth="120" disable="true"/>
+            <Button fx:id="previewBtn" text="预览最近结果" onAction="#onPreview"
+                style="-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-size: 14px;"
+                maxWidth="140" disable="true"/>
+            <Button fx:id="outPathBtn" text="结果确认" onAction="#onOutPath"
+                    style="-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-size: 14px;"
+                    maxWidth="140" disable="true"/>
+            <Button fx:id="btnBackMain" text="返回首页"  onAction="#btnBackMain"
+                    style="-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-size: 14px;"
+                    maxWidth="140" />
+        </HBox>
+
+        <!-- 进度条 -->
+        <ProgressBar fx:id="progressBar" prefWidth="Infinity"/>
+
+        <!-- 状态信息 -->
+        <Label fx:id="statusLabel" text="就绪" wrapText="true"/>
+
+        <!-- 底部留白 -->
+        <VBox.margin>
+            <Insets top="10"/>
+        </VBox.margin>
+    </VBox>
+</AnchorPane>

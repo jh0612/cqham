@@ -25,6 +25,10 @@ public class TimeSpinnerValueFactory extends SpinnerValueFactory<String> {
         setValue(String.format("%02d:%02d", hour, min));
     }
 
+    /**
+     * 自定义Spinner工厂内部类
+     * @param steps 步长
+     */
     @Override
     public void increment(int steps) {
         String time = getValue();
