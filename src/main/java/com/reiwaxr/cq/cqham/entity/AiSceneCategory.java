@@ -1,10 +1,14 @@
 package com.reiwaxr.cq.cqham.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * AI场景分类实体
  */
+@Setter
+@Getter
 @Data
 public class AiSceneCategory {
     /* ID */
@@ -39,83 +43,4 @@ public class AiSceneCategory {
     public AiSceneCategory() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getSceneName() {
-        return sceneName;
-    }
-
-    public void setSceneName(String sceneName) {
-        this.sceneName = sceneName;
-    }
-
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
-
-    public String getSystemPrompt() {
-        return systemPrompt;
-    }
-
-    public void setSystemPrompt(String systemPrompt) {
-        this.systemPrompt = systemPrompt;
-    }
-
-    public Integer getSortOrder() {
-        return sortOrder;
-    }
-
-    public void setSortOrder(Integer sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
-    public boolean isCustom() {
-        return custom;
-    }
-
-    public void setCustom(boolean custom) {
-        this.custom = custom;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
 }
